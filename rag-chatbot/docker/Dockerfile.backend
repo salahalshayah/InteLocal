@@ -1,0 +1,17 @@
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
+
+# Set the working directory in the container
+WORKDIR /backend
+
+# Copy the backend requirements
+
+COPY ../backend/ /backend/
+
+# Install the dependencies
+RUN pip install --no-cache-dir -r /backend/requirements.txt
+
+# Expose port 8000 for FastAPI
+EXPOSE 8000
+
+# Use the new import path for your FastAPI app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
